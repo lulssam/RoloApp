@@ -9,9 +9,15 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import dam.a50799.prj_roloapp.ui.theme.PRJ_RoloAppTheme
+import dam.a50799.prj_roloapp.ui.theme.login.LoginScreen
+import dam.a50799.prj_roloapp.ui.theme.login.LoginScreenContent
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -19,12 +25,16 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             PRJ_RoloAppTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
-                        modifier = Modifier.padding(innerPadding)
+                var isLoggedIn by remember { mutableStateOf(false) }
+
+                if (isLoggedIn){
+                    // TODO
+                } else {
+                    LoginScreen(
+                        onLoginSuccess = {isLoggedIn = true}
                     )
                 }
+
             }
         }
     }
