@@ -22,7 +22,9 @@ fun LoginScreenContent(
     onEmailChange: (String) -> Unit,
     onPasswordChange: (String) -> Unit,
     onLoginClick: () -> Unit,
-    onLoginSuccess: () -> Unit
+    onLoginSuccess: () -> Unit,
+    onGoogleClick: () -> Unit,
+    onFacebookClick: () -> Unit
 ) {
     if (isLoggedIn) {
         onLoginSuccess() // navega para ecrã inicial
