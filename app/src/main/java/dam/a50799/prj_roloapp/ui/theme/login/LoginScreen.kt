@@ -35,7 +35,10 @@ fun LoginScreenContent(
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Text("Rolo", style = MaterialTheme.typography.titleLarge)
+        Text("Rolo",
+            style = MaterialTheme.typography.titleLarge,
+
+        )
         Spacer(modifier = Modifier.height(16.dp))
         OutlinedTextField(
             value = email,
