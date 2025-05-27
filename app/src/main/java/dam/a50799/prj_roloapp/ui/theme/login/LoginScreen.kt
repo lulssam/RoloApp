@@ -169,7 +169,9 @@ fun LoginScreen(
         onEmailChange = { viewModel.email.value = it },
         onPasswordChange = { viewModel.password.value = it },
         onLoginClick = {viewModel.login()},
-        onLoginSuccess = onLoginSuccess
+        onLoginSuccess = onLoginSuccess,
+        onGoogleClick = {/*TODO: chamar loginGoogle()*/},
+        onFacebookClick = {/*TODO: chamar loginFacebook() */}
     )
 }
 
