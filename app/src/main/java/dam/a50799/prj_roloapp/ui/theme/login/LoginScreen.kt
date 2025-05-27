@@ -117,6 +117,38 @@ fun LoginScreenContent(
                 letterSpacing = 1.sp
             )
         }
+
+        Spacer(modifier = Modifier.height(12.dp))
+
+        Text(
+            "or",
+            fontSize = 20.sp,
+            fontFamily = Roboto,
+            fontWeight = FontWeight.Medium,
+            letterSpacing = 1.sp
+
+        )
+        Row(
+            horizontalArrangement = Arrangement.spacedBy(24.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ){
+            IconButton(onClick = onGoogleClick) {
+                Icon(
+                    painter = painterResource(id = R.drawable.googleicon),
+                    contentDescription = "Login com google",
+                    modifier = Modifier.size(40.dp),
+                    tint = Color.Unspecified
+                )
+            }
+            IconButton(onClick = onFacebookClick) {
+                Icon(
+                    painter = painterResource(id = R.drawable.facebookicon),
+                    contentDescription = "Login com facebook",
+                    modifier = Modifier.size(48.dp),
+                    tint = Color.Unspecified
+                )
+            }
+        }
     }
 
 }
