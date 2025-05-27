@@ -1,18 +1,26 @@
 package dam.a50799.prj_roloapp.ui.theme.login
 
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.ViewModel
+import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import java.nio.file.WatchEvent
+import dam.a50799.prj_roloapp.ui.theme.Roboto
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
+import dam.a50799.prj_roloapp.ui.theme.amareloTorrado
+import dam.a50799.prj_roloapp.R
+
 
 @Composable
 fun LoginScreenContent(
@@ -92,6 +100,7 @@ fun LoginScreenContent(
                 .height(71.dp),
             shape = RoundedCornerShape(20.dp),
             visualTransformation = PasswordVisualTransformation()
+            // TODO colors
         )
 
         Spacer(modifier = Modifier.height(20.dp))
@@ -178,7 +187,7 @@ fun LoginScreen(
 @Preview(showBackground = true)
 @Composable
 fun LoginScreenPreview() {
-    LoginScreenContent(
+       LoginScreenContent(
         email = "teste@exemplo.com",
         password = "1234",
         isLoggedIn = false,
