@@ -79,7 +79,18 @@ fun LoginScreenContent(
         OutlinedTextField(
             value = password,
             onValueChange = onPasswordChange,
-            label = { Text("Password") },
+            placeholder = { Text(
+                "Password",
+                fontSize = 24.sp,
+                fontFamily = Roboto,
+                fontWeight = FontWeight.Medium,
+                letterSpacing = 7.sp
+                ) },
+            singleLine = true,
+            modifier = Modifier
+                .width(352.dp)
+                .height(71.dp),
+            shape = RoundedCornerShape(20.dp),
             visualTransformation = PasswordVisualTransformation()
         )
         Spacer(modifier = Modifier.height(16.dp))
