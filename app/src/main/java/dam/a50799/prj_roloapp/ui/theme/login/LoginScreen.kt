@@ -37,6 +37,9 @@ fun LoginScreenContent(
         verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
+
+        Spacer(modifier = Modifier.height(48.dp))
+
         Text("Rolo",
             style = MaterialTheme.typography.titleLarge,
 
