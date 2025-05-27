@@ -47,7 +47,15 @@ fun LoginScreenContent(
             letterSpacing = 17.sp
 
         )
-        Spacer(modifier = Modifier.height(16.dp))
+        Text("App",
+            fontSize = 128.sp,
+            fontFamily = Roboto,
+            fontWeight = FontWeight.Black,
+            letterSpacing = 17.sp
+
+        )
+        Spacer(modifier = Modifier.height(48.dp))
+
         OutlinedTextField(
             value = email,
             onValueChange = onEmailChange,
