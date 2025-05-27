@@ -74,7 +74,8 @@ fun LoginScreenContent(
             // TODO colors
         )
 
-        Spacer(modifier = Modifier.height(8.dp))
+        Spacer(modifier = Modifier.height(18.dp))
+
         OutlinedTextField(
             value = password,
             onValueChange = onPasswordChange,
