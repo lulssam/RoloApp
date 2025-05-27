@@ -185,6 +185,8 @@ fun LoginScreenPreview() {
         onEmailChange = {},
         onPasswordChange = {},
         onLoginClick = {},
-        onLoginSuccess = {}
+        onLoginSuccess = {},
+        onGoogleClick = {},
+        onFacebookClick = {}
     )
 }
