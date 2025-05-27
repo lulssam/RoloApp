@@ -41,7 +41,10 @@ fun LoginScreenContent(
         Spacer(modifier = Modifier.height(48.dp))
 
         Text("Rolo",
-            style = MaterialTheme.typography.titleLarge,
+            fontSize = 128.sp,
+            fontFamily = Roboto,
+            fontWeight = FontWeight.Black,
+            letterSpacing = 17.sp
 
         )
         Spacer(modifier = Modifier.height(16.dp))
