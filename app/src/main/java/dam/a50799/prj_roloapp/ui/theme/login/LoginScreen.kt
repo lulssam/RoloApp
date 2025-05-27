@@ -59,7 +59,19 @@ fun LoginScreenContent(
         OutlinedTextField(
             value = email,
             onValueChange = onEmailChange,
-            label = { Text("Email") }
+            placeholder = { Text(
+                "Email",
+                fontSize = 24.sp,
+                fontFamily = Roboto,
+                fontWeight = FontWeight.Medium,
+                letterSpacing = 7.sp
+                ) },
+            singleLine = true,
+            modifier = Modifier
+                .width(352.dp)
+                .height(71.dp),
+            shape = RoundedCornerShape(20.dp),
+            // TODO colors
         )
 
         Spacer(modifier = Modifier.height(8.dp))
