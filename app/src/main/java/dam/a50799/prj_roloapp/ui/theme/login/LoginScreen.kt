@@ -93,9 +93,29 @@ fun LoginScreenContent(
             shape = RoundedCornerShape(20.dp),
             visualTransformation = PasswordVisualTransformation()
         )
-        Spacer(modifier = Modifier.height(16.dp))
-        Button(onClick = onLoginClick) {
-            Text("Login")
+
+        Spacer(modifier = Modifier.height(20.dp))
+
+        Button(
+            modifier = Modifier
+                .width(352.dp)
+                .height(68.dp),
+            onClick = onLoginClick,
+            shape = RoundedCornerShape(20.dp),
+            colors = ButtonDefaults.buttonColors(
+                containerColor = amareloTorrado,
+                contentColor = Color.Black
+            ),
+            border = BorderStroke(2.dp, Color.Black)
+
+            ) {
+            Text(
+                "Login",
+                fontSize = 26.sp,
+                fontFamily = Roboto,
+                fontWeight = FontWeight.Medium,
+                letterSpacing = 1.sp
+            )
         }
     }
 
