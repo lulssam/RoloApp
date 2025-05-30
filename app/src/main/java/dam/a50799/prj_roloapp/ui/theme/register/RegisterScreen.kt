@@ -1,5 +1,4 @@
-package dam.a50799.prj_roloapp.ui.theme.login
-
+package dam.a50799.prj_roloapp.ui.theme.register
 
 import android.widget.Toast
 import androidx.compose.foundation.BorderStroke
@@ -24,31 +23,18 @@ import androidx.navigation.NavController
 import dam.a50799.prj_roloapp.ui.theme.amareloTorrado
 import dam.a50799.prj_roloapp.R
 import dam.a50799.prj_roloapp.data.auth.SignInState
-
+import java.nio.file.WatchEvent
 
 @Composable
-fun LoginScreenContent(
+fun RegisterScreenContent(
     email: String,
     password: String,
-    state: SignInState,
+    verifyPassword: String,
     onEmailChange: (String) -> Unit,
     onPasswordChange: (String) -> Unit,
-    onLoginClick: () -> Unit,
-    onGoogleClick: () -> Unit,
-    onFacebookClick: () -> Unit,
-    navController: NavController
+    onVerifyPasswordChange: (String) -> Unit,
+    onRegisterClick: () -> Unit
 ) {
-
-    val context = LocalContext.current
-    LaunchedEffect(key1 = state.signInError) {
-        state.signInError?.let { error ->
-            Toast.makeText(
-                context,
-                error,
-                Toast.LENGTH_LONG
-            ).show()
-        }
-    }
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -56,7 +42,6 @@ fun LoginScreenContent(
         verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-
         Spacer(modifier = Modifier.height(48.dp))
 
         Text(
@@ -75,6 +60,7 @@ fun LoginScreenContent(
             letterSpacing = 17.sp
 
         )
+
         Spacer(modifier = Modifier.height(48.dp))
 
         OutlinedTextField(
@@ -120,13 +106,36 @@ fun LoginScreenContent(
             // TODO colors
         )
 
-        Spacer(modifier = Modifier.height(20.dp))
+        Spacer(modifier = Modifier.height(18.dp))
+
+        OutlinedTextField(
+            value = verifyPassword,
+            onValueChange = onVerifyPasswordChange,
+            placeholder = {
+                Text(
+                    "Verify Password",
+                    fontSize = 24.sp,
+                    fontFamily = Roboto,
+                    fontWeight = FontWeight.Medium,
+                    letterSpacing = 7.sp
+                )
+            },
+            singleLine = true,
+            modifier = Modifier
+                .width(352.dp)
+                .height(71.dp),
+            shape = RoundedCornerShape(20.dp),
+            visualTransformation = PasswordVisualTransformation()
+            // TODO colors
+        )
+
+        Spacer(modifier = Modifier.height(18.dp))
 
         Button(
             modifier = Modifier
                 .width(352.dp)
                 .height(68.dp),
-            onClick = onLoginClick,
+            onClick = onRegisterClick,
             shape = RoundedCornerShape(20.dp),
             colors = ButtonDefaults.buttonColors(
                 containerColor = amareloTorrado,
@@ -136,96 +145,54 @@ fun LoginScreenContent(
 
         ) {
             Text(
-                "Login",
+                "Register",
                 fontSize = 26.sp,
                 fontFamily = Roboto,
                 fontWeight = FontWeight.Medium,
                 letterSpacing = 1.sp
             )
         }
-
-        Spacer(modifier = Modifier.height(12.dp))
-
-        Text(
-            "or",
-            fontSize = 20.sp,
-            fontFamily = Roboto,
-            fontWeight = FontWeight.Medium,
-            letterSpacing = 1.sp
-
-        )
-        Row(
-            horizontalArrangement = Arrangement.spacedBy(24.dp),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            IconButton(onClick = onGoogleClick) {
-                Icon(
-                    painter = painterResource(id = R.drawable.googleicon),
-                    contentDescription = "Login com google",
-                    modifier = Modifier.size(40.dp),
-                    tint = Color.Unspecified
-                )
-            }
-            IconButton(onClick = onFacebookClick) {
-                Icon(
-                    painter = painterResource(id = R.drawable.facebookicon),
-                    contentDescription = "Login com facebook",
-                    modifier = Modifier.size(48.dp),
-                    tint = Color.Unspecified
-                )
-            }
-
-            IconButton(onClick = {navController.navigate("register")}) {
-                Icon(
-                    painter = painterResource(id = R.drawable.emailicon),
-                    contentDescription = "Login com email e password",
-                    modifier = Modifier.size(40.dp),
-                    tint = Color.Unspecified
-                )
-            }
-        }
     }
-
 }
 
 @Composable
-fun LoginScreen(
-    viewModel: LoginViewModel = viewModel(),
-    onGoogleClick: () -> Unit,
-    navController: NavController
+fun RegisterScreen(
+    navController: NavController,
+    viewModel: RegisterViewModel = viewModel()
 ) {
-    val email by viewModel.email
-    val password by viewModel.password
-    val state by viewModel.state.collectAsState()
+    val context = LocalContext.current
 
-    LoginScreenContent(
-        email = email,
-        password = password,
-        state = state,
+    RegisterScreenContent(
+        email = viewModel.email.value,
+        password = viewModel.password.value,
+        verifyPassword = viewModel.verifyPassword.value,
         onEmailChange = { viewModel.email.value = it },
-        onPasswordChange = { viewModel.password.value = it },
-        onLoginClick = { viewModel.login() },
-        onGoogleClick = onGoogleClick,
-        onFacebookClick = {/*TODO: chamar loginFacebook() */ },
-        navController = navController
-
-    )
+        onPasswordChange = {viewModel.password.value = it},
+        onVerifyPasswordChange = {viewModel.verifyPassword.value = it},
+        onRegisterClick = {
+            viewModel.registerUser(
+                onSuccess = {
+                    Toast.makeText(context, "Registration successful!", Toast.LENGTH_LONG).show()
+                    navController.navigate("sign_in") // voltar para login
+                },
+                onFailure = {
+                    Toast.makeText(context, it, Toast.LENGTH_LONG).show()
+                }
+            )
+        }
+        )
 }
-/*
+
 @Preview(showBackground = true)
 @Composable
-fun LoginScreenPreview() {
-    LoginScreenContent(
+fun RegisterScreenPreview() {
+    RegisterScreenContent(
         email = "teste@exemplo.com",
         password = "1234",
-        isLoggedIn = false,
-        state = SignInState(),
+        verifyPassword = "1234",
         onEmailChange = {},
         onPasswordChange = {},
-        onLoginClick = {},
-        onLoginSuccess = {},
-        onGoogleClick = {},
-        onFacebookClick = {},
-
+        onVerifyPasswordChange = {},
+        onRegisterClick = {}
     )
-}*/
+}
