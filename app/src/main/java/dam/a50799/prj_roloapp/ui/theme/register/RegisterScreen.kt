@@ -17,13 +17,10 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import dam.a50799.prj_roloapp.ui.theme.Roboto
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavController
 import dam.a50799.prj_roloapp.ui.theme.amareloTorrado
 import dam.a50799.prj_roloapp.R
-import dam.a50799.prj_roloapp.data.auth.SignInState
-import java.nio.file.WatchEvent
 
 @Composable
 fun RegisterScreenContent(

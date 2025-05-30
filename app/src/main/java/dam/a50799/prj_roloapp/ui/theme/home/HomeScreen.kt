@@ -1,9 +1,12 @@
 package dam.a50799.prj_roloapp.ui.theme.home
 
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -12,9 +15,11 @@ import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
@@ -32,23 +37,25 @@ import androidx.navigation.NavController
 import dam.a50799.prj_roloapp.ui.theme.Roboto
 import dam.a50799.prj_roloapp.ui.theme.amareloTorrado
 import dam.a50799.prj_roloapp.R
+import dam.a50799.prj_roloapp.ui.theme.cinzento
 
 @Composable
 fun HomeScreenContent(
-    onSBSClick: () -> Unit,
-    onProfileClick: () -> Unit,
-    navController: NavController?
+    onSBSClick: () -> Unit, onProfileClick: () -> Unit, navController: NavController?
 ) {
 
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .padding(16.dp)
+            .padding(top = 32.dp),
     ) {
+
         IconButton(
             onClick = onProfileClick,
-            modifier = Modifier.align(Alignment.TopEnd)
-                .size(64.dp)
+            modifier = Modifier
+                .align(Alignment.TopEnd)
+                .padding(end = 24.dp)
+                .size(72.dp)
         ) {
             Icon(
                 modifier = Modifier.size(100.dp),
@@ -59,7 +66,8 @@ fun HomeScreenContent(
         }
         Column(
             modifier = Modifier
-                .fillMaxWidth(),
+                .fillMaxWidth()
+                .padding(16.dp),
             verticalArrangement = Arrangement.Top,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
@@ -72,16 +80,14 @@ fun HomeScreenContent(
                 fontFamily = Roboto,
                 fontWeight = FontWeight.Bold,
                 letterSpacing = 1.sp,
-                lineHeight = 55.sp,
+                lineHeight = 75.sp,
                 modifier = Modifier.heightIn(min = 100.dp)
             )
 
             Spacer(modifier = Modifier.height(12.dp))
 
             Text(
-                "Welcome! RoloApp is an Android application that helps analog" +
-                        " photography enthusiasts who want to start developing rolls at home and" +
-                        " share them with others.",
+                "Welcome! RoloApp is an Android application that helps analog" + " photography enthusiasts who want to start developing rolls at home and" + " share them with others.",
                 fontSize = 20.sp,
                 fontFamily = Roboto,
                 fontWeight = FontWeight.Light,
@@ -99,8 +105,7 @@ fun HomeScreenContent(
                 onClick = onSBSClick,
                 shape = RoundedCornerShape(20.dp),
                 colors = ButtonDefaults.buttonColors(
-                    containerColor = amareloTorrado,
-                    contentColor = Color.Black
+                    containerColor = amareloTorrado, contentColor = Color.Black
                 ),
                 border = BorderStroke(2.dp, Color.Black)
 
@@ -114,23 +119,107 @@ fun HomeScreenContent(
                 )
             }
 
+            Spacer(modifier = Modifier.height(32.dp))
+
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .wrapContentHeight()
+                    .border(
+                        BorderStroke(2.dp, cinzento), shape = RoundedCornerShape(20.dp)
+                    )
+            ) {
+
+                Column {
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(60.dp)
+                            .clickable {/*TODO pagina timer*/ }
+                            .padding(horizontal = 16.dp),
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.SpaceBetween) {
+                        Text(
+                            text = "Timer",
+                            fontFamily = Roboto,
+                            fontWeight = FontWeight.Medium,
+                            fontSize = 20.sp
+                        )
+                        Icon(
+                            painter = painterResource(id = R.drawable.navigate_next),
+                            contentDescription = "Go to Timer",
+                            tint = Color.Black,
+                            modifier = Modifier.size(24.dp)
+                        )
+                    }
+
+                    HorizontalDivider(thickness = 2.dp, color = cinzento)
+
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(60.dp)
+                            .clickable {/*TODO página comunidade*/ }
+                            .padding(horizontal = 16.dp),
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.SpaceBetween) {
+                        Text(
+                            text = "Community",
+                            fontFamily = Roboto,
+                            fontWeight = FontWeight.Medium,
+                            fontSize = 20.sp
+                        )
+                        Icon(
+                            painter = painterResource(id = R.drawable.navigate_next),
+                            contentDescription = "Go to Community",
+                            tint = Color.Black,
+                            modifier = Modifier.size(24.dp)
+                        )
+                    }
+
+                    HorizontalDivider(thickness = 2.dp, color = cinzento)
+
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(60.dp)
+                            .clickable {/*TODO página filmes*/ }
+                            .padding(horizontal = 16.dp),
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.SpaceBetween) {
+
+                        Text(
+                            text = "Films",
+                            fontFamily = Roboto,
+                            fontWeight = FontWeight.Medium,
+                            fontSize = 20.sp
+                        )
+                        Icon(
+                            painter = painterResource(id = R.drawable.navigate_next),
+                            contentDescription = "Go to Films",
+                            tint = Color.Black,
+                            modifier = Modifier.size(24.dp)
+                        )
+                    }
+                }
+
+            }
+
+
         }
     }
 }
 
 @Composable
 fun HomeScreen(
-    viewModel: HomeViewModel = viewModel(),
-    navController: NavController
+    viewModel: HomeViewModel = viewModel(), navController: NavController
 ) {
     HomeScreenContent(
         onSBSClick = {
-            // TODO navController.navigate("step_by_step")
-        },
-        onProfileClick = {
-            // TODO navController.navigate("profile")
-        },
-        navController = navController
+        // TODO navController.navigate("step_by_step")
+    }, onProfileClick = {
+        // TODO navController.navigate("profile")
+    }, navController = navController
     )
 }
 
@@ -138,8 +227,6 @@ fun HomeScreen(
 @Composable
 fun HomeScreenPreview() {
     HomeScreenContent(
-        onSBSClick = {},
-        onProfileClick = {},
-        navController = null
+        onSBSClick = {}, onProfileClick = {}, navController = null
     )
 }

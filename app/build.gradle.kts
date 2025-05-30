@@ -62,6 +62,7 @@ dependencies {
     implementation(libs.androidx.credentials)
     implementation(libs.androidx.credentials.play.services.auth)
     implementation(libs.googleid)
+    implementation(libs.firebase.firestore)
     kapt(libs.room.compiler)
     implementation(libs.room.ktx)
     implementation(libs.lifecycle.viewmodel.ktx)

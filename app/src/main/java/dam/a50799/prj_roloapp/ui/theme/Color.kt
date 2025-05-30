@@ -11,3 +11,4 @@ val PurpleGrey40 = Color(0xFF625b71)
 val Pink40 = Color(0xFF7D5260)
 
 val amareloTorrado = Color(0xFFFFC619)
+val cinzento = Color(0xD6D6D6D6)
