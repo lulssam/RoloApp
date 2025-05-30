@@ -6,7 +6,9 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -46,72 +48,73 @@ fun HomeScreenContent(
         IconButton(
             onClick = onProfileClick,
             modifier = Modifier.align(Alignment.TopEnd)
+                .size(64.dp)
         ) {
             Icon(
-                modifier = Modifier.size(64.dp),
+                modifier = Modifier.size(100.dp),
                 painter = painterResource(id = R.drawable.default_icon),
                 contentDescription = "Profile Icon",
                 tint = Color.Unspecified
             )
         }
-    }
-
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(16.dp),
-        verticalArrangement = Arrangement.Top,
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-
-        Spacer(modifier = Modifier.height(64.dp))
-
-        Text(
-            "Develop Film At Home",
-            fontSize = 60.sp,
-            fontFamily = Roboto,
-            fontWeight = FontWeight.Bold,
-            letterSpacing = 1.sp
-        )
-
-        Spacer(modifier = Modifier.height(12.dp))
-
-        Text(
-            "Welcome! RoloApp is an Android application that helps analog" +
-                    " photography enthusiasts who want to start developing rolls at home and" +
-                    " share them with others.",
-            fontSize = 20.sp,
-            fontFamily = Roboto,
-            fontWeight = FontWeight.Light,
-            letterSpacing = 1.sp,
-            lineHeight = 25.sp
-            //textAlign = TextAlign.Justify
-        )
-
-        Spacer(modifier = Modifier.height(18.dp))
-
-        Button(
+        Column(
             modifier = Modifier
-                .width(372.dp)
-                .height(56.dp),
-            onClick = onSBSClick,
-            shape = RoundedCornerShape(20.dp),
-            colors = ButtonDefaults.buttonColors(
-                containerColor = amareloTorrado,
-                contentColor = Color.Black
-            ),
-            border = BorderStroke(2.dp, Color.Black)
-
+                .fillMaxWidth(),
+            verticalArrangement = Arrangement.Top,
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Text(
-                "Step-by-step Guide",
-                fontSize = 24.sp,
-                fontFamily = Roboto,
-                fontWeight = FontWeight.Medium,
-                letterSpacing = 3.sp
-            )
-        }
 
+            Spacer(modifier = Modifier.height(64.dp))
+
+            Text(
+                "Develop Film At Home",
+                fontSize = 60.sp,
+                fontFamily = Roboto,
+                fontWeight = FontWeight.Bold,
+                letterSpacing = 1.sp,
+                lineHeight = 55.sp,
+                modifier = Modifier.heightIn(min = 100.dp)
+            )
+
+            Spacer(modifier = Modifier.height(12.dp))
+
+            Text(
+                "Welcome! RoloApp is an Android application that helps analog" +
+                        " photography enthusiasts who want to start developing rolls at home and" +
+                        " share them with others.",
+                fontSize = 20.sp,
+                fontFamily = Roboto,
+                fontWeight = FontWeight.Light,
+                letterSpacing = 1.sp,
+                lineHeight = 25.sp
+                //textAlign = TextAlign.Justify
+            )
+
+            Spacer(modifier = Modifier.height(18.dp))
+
+            Button(
+                modifier = Modifier
+                    .width(372.dp)
+                    .height(56.dp),
+                onClick = onSBSClick,
+                shape = RoundedCornerShape(20.dp),
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = amareloTorrado,
+                    contentColor = Color.Black
+                ),
+                border = BorderStroke(2.dp, Color.Black)
+
+            ) {
+                Text(
+                    "Step-by-step Guide",
+                    fontSize = 24.sp,
+                    fontFamily = Roboto,
+                    fontWeight = FontWeight.Medium,
+                    letterSpacing = 3.sp
+                )
+            }
+
+        }
     }
 }
 
@@ -131,7 +134,6 @@ fun HomeScreen(
     )
 }
 
-/*
 @Preview(showBackground = true)
 @Composable
 fun HomeScreenPreview() {
@@ -140,4 +142,4 @@ fun HomeScreenPreview() {
         onProfileClick = {},
         navController = null
     )
-}*/
+}
