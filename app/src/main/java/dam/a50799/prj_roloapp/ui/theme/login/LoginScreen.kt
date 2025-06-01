@@ -24,7 +24,9 @@ import androidx.navigation.NavController
 import dam.a50799.prj_roloapp.ui.theme.amareloTorrado
 import dam.a50799.prj_roloapp.R
 import dam.a50799.prj_roloapp.data.auth.SignInState
-
+import dam.a50799.prj_roloapp.utils.dropShadow
+import androidx.compose.material3.TextFieldDefaults
+import dam.a50799.prj_roloapp.utils.customTextFieldColors
 
 @Composable
 fun LoginScreenContent(
@@ -36,7 +38,7 @@ fun LoginScreenContent(
     onLoginClick: () -> Unit,
     onGoogleClick: () -> Unit,
     onFacebookClick: () -> Unit,
-    navController: NavController
+    navController: NavController?
 ) {
 
     val context = LocalContext.current
@@ -49,6 +51,7 @@ fun LoginScreenContent(
             ).show()
         }
     }
+    // region Coluna principal
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -58,7 +61,7 @@ fun LoginScreenContent(
     ) {
 
         Spacer(modifier = Modifier.height(48.dp))
-
+        // region Texto Rolo
         Text(
             "Rolo",
             fontSize = 128.sp,
@@ -67,6 +70,9 @@ fun LoginScreenContent(
             letterSpacing = 17.sp
 
         )
+        // endregion
+
+        // region Texto App
         Text(
             "App",
             fontSize = 128.sp,
@@ -75,8 +81,11 @@ fun LoginScreenContent(
             letterSpacing = 17.sp
 
         )
+        // endregion
+
         Spacer(modifier = Modifier.height(48.dp))
 
+        // region Input Email
         OutlinedTextField(
             value = email,
             onValueChange = onEmailChange,
@@ -92,13 +101,15 @@ fun LoginScreenContent(
             singleLine = true,
             modifier = Modifier
                 .width(352.dp)
-                .height(71.dp),
+                .height(71.dp)
+                .dropShadow(),
             shape = RoundedCornerShape(20.dp),
-            // TODO colors
-        )
+            colors = customTextFieldColors()
+        ) // endregion
 
         Spacer(modifier = Modifier.height(18.dp))
 
+        // region Password Input
         OutlinedTextField(
             value = password,
             onValueChange = onPasswordChange,
@@ -114,18 +125,21 @@ fun LoginScreenContent(
             singleLine = true,
             modifier = Modifier
                 .width(352.dp)
-                .height(71.dp),
+                .height(71.dp)
+                .dropShadow(),
             shape = RoundedCornerShape(20.dp),
-            visualTransformation = PasswordVisualTransformation()
-            // TODO colors
-        )
+            visualTransformation = PasswordVisualTransformation(),
+            colors = customTextFieldColors()
+        ) // endregion
 
         Spacer(modifier = Modifier.height(20.dp))
 
+        // region Botão Login
         Button(
             modifier = Modifier
                 .width(352.dp)
-                .height(68.dp),
+                .height(68.dp)
+                .dropShadow(),
             onClick = onLoginClick,
             shape = RoundedCornerShape(20.dp),
             colors = ButtonDefaults.buttonColors(
@@ -142,10 +156,11 @@ fun LoginScreenContent(
                 fontWeight = FontWeight.Medium,
                 letterSpacing = 1.sp
             )
-        }
+        } // endregion
 
         Spacer(modifier = Modifier.height(12.dp))
 
+        // region Or
         Text(
             "or",
             fontSize = 20.sp,
@@ -153,11 +168,14 @@ fun LoginScreenContent(
             fontWeight = FontWeight.Medium,
             letterSpacing = 1.sp
 
-        )
+        )// endregion
+
+        // region Linha Icones
         Row(
             horizontalArrangement = Arrangement.spacedBy(24.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
+            // region Google
             IconButton(onClick = onGoogleClick) {
                 Icon(
                     painter = painterResource(id = R.drawable.googleicon),
@@ -165,7 +183,9 @@ fun LoginScreenContent(
                     modifier = Modifier.size(40.dp),
                     tint = Color.Unspecified
                 )
-            }
+            } // endregion
+
+            // region Facebook
             IconButton(onClick = onFacebookClick) {
                 Icon(
                     painter = painterResource(id = R.drawable.facebookicon),
@@ -173,18 +193,19 @@ fun LoginScreenContent(
                     modifier = Modifier.size(48.dp),
                     tint = Color.Unspecified
                 )
-            }
+            } // endregion
 
-            IconButton(onClick = {navController.navigate("register")}) {
+            // region Email
+            IconButton(onClick = {navController?.navigate("register")}) {
                 Icon(
                     painter = painterResource(id = R.drawable.emailicon),
                     contentDescription = "Login com email e password",
                     modifier = Modifier.size(40.dp),
                     tint = Color.Unspecified
                 )
-            }
-        }
-    }
+            } // endregion
+        } // endregion
+    } //endregion
 
 }
 
@@ -211,21 +232,18 @@ fun LoginScreen(
 
     )
 }
-/*
 @Preview(showBackground = true)
 @Composable
 fun LoginScreenPreview() {
     LoginScreenContent(
         email = "teste@exemplo.com",
         password = "1234",
-        isLoggedIn = false,
         state = SignInState(),
         onEmailChange = {},
         onPasswordChange = {},
         onLoginClick = {},
-        onLoginSuccess = {},
         onGoogleClick = {},
         onFacebookClick = {},
-
+        navController = null
     )
-}*/
+}

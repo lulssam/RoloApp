@@ -30,6 +30,7 @@ import dam.a50799.prj_roloapp.ui.theme.login.LoginViewModel
 import dam.a50799.prj_roloapp.data.auth.GoogleAuthUiClient
 import dam.a50799.prj_roloapp.ui.theme.home.HomeScreen
 import dam.a50799.prj_roloapp.ui.theme.register.RegisterScreen
+import dam.a50799.prj_roloapp.ui.theme.settings.SettingsScreen
 import kotlinx.coroutines.launch
 
 
@@ -138,6 +139,10 @@ class MainActivity : ComponentActivity() {
                             }
                             composable("homescreen") {
                                 HomeScreen(navController = navController)
+                            }
+
+                            composable("settings"){
+                                SettingsScreen(navController = navController)
                             }
                         }
                     }

@@ -12,3 +12,5 @@ val Pink40 = Color(0xFF7D5260)
 
 val amareloTorrado = Color(0xFFFFC619)
 val cinzento = Color(0xD6D6D6D6)
+
+val background = Color(0xFFFFF4EC)

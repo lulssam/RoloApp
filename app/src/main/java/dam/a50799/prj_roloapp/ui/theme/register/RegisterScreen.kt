@@ -21,6 +21,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavController
 import dam.a50799.prj_roloapp.ui.theme.amareloTorrado
 import dam.a50799.prj_roloapp.R
+import dam.a50799.prj_roloapp.utils.customTextFieldColors
+import dam.a50799.prj_roloapp.utils.dropShadow
 
 @Composable
 fun RegisterScreenContent(
@@ -32,6 +34,7 @@ fun RegisterScreenContent(
     onVerifyPasswordChange: (String) -> Unit,
     onRegisterClick: () -> Unit
 ) {
+    // region Coluna principal
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -41,6 +44,7 @@ fun RegisterScreenContent(
     ) {
         Spacer(modifier = Modifier.height(48.dp))
 
+        // region Texto Rolo
         Text(
             "Rolo",
             fontSize = 128.sp,
@@ -48,7 +52,9 @@ fun RegisterScreenContent(
             fontWeight = FontWeight.Black,
             letterSpacing = 17.sp
 
-        )
+        ) // endregion
+
+        // region Texto App
         Text(
             "App",
             fontSize = 128.sp,
@@ -56,10 +62,11 @@ fun RegisterScreenContent(
             fontWeight = FontWeight.Black,
             letterSpacing = 17.sp
 
-        )
+        ) // endregion
 
         Spacer(modifier = Modifier.height(48.dp))
 
+        // region Input Email
         OutlinedTextField(
             value = email,
             onValueChange = onEmailChange,
@@ -75,13 +82,15 @@ fun RegisterScreenContent(
             singleLine = true,
             modifier = Modifier
                 .width(352.dp)
-                .height(71.dp),
+                .height(71.dp)
+                .dropShadow(),
             shape = RoundedCornerShape(20.dp),
-            // TODO colors
-        )
+            colors = customTextFieldColors()
+        ) // endregion
 
         Spacer(modifier = Modifier.height(18.dp))
 
+        // region Input Password
         OutlinedTextField(
             value = password,
             onValueChange = onPasswordChange,
@@ -97,14 +106,16 @@ fun RegisterScreenContent(
             singleLine = true,
             modifier = Modifier
                 .width(352.dp)
-                .height(71.dp),
+                .height(71.dp)
+                .dropShadow(),
             shape = RoundedCornerShape(20.dp),
-            visualTransformation = PasswordVisualTransformation()
-            // TODO colors
-        )
+            visualTransformation = PasswordVisualTransformation(),
+            colors = customTextFieldColors()
+        ) // endregion
 
         Spacer(modifier = Modifier.height(18.dp))
 
+        //region Input Verify Password
         OutlinedTextField(
             value = verifyPassword,
             onValueChange = onVerifyPasswordChange,
@@ -120,18 +131,21 @@ fun RegisterScreenContent(
             singleLine = true,
             modifier = Modifier
                 .width(352.dp)
-                .height(71.dp),
+                .height(71.dp)
+                .dropShadow(),
             shape = RoundedCornerShape(20.dp),
-            visualTransformation = PasswordVisualTransformation()
-            // TODO colors
-        )
+            visualTransformation = PasswordVisualTransformation(),
+            colors = customTextFieldColors()
+        ) // endregion
 
         Spacer(modifier = Modifier.height(18.dp))
 
+        // region Botão Registar
         Button(
             modifier = Modifier
                 .width(352.dp)
-                .height(68.dp),
+                .height(68.dp)
+                .dropShadow(),
             onClick = onRegisterClick,
             shape = RoundedCornerShape(20.dp),
             colors = ButtonDefaults.buttonColors(
@@ -148,8 +162,8 @@ fun RegisterScreenContent(
                 fontWeight = FontWeight.Medium,
                 letterSpacing = 1.sp
             )
-        }
-    }
+        } // endregion
+    } // endregion
 }
 
 @Composable
@@ -164,8 +178,8 @@ fun RegisterScreen(
         password = viewModel.password.value,
         verifyPassword = viewModel.verifyPassword.value,
         onEmailChange = { viewModel.email.value = it },
-        onPasswordChange = {viewModel.password.value = it},
-        onVerifyPasswordChange = {viewModel.verifyPassword.value = it},
+        onPasswordChange = { viewModel.password.value = it },
+        onVerifyPasswordChange = { viewModel.verifyPassword.value = it },
         onRegisterClick = {
             viewModel.registerUser(
                 onSuccess = {
@@ -177,7 +191,7 @@ fun RegisterScreen(
                 }
             )
         }
-        )
+    )
 }
 
 @Preview(showBackground = true)
