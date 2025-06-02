@@ -3,7 +3,6 @@ package dam.a50799.prj_roloapp.ui.theme.films
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import dam.a50799.prj_roloapp.data.local.dao.FilmDao
-import dam.a50799.prj_roloapp.data.repository.FilmRepository
 
 class FilmViewModelFactory(
     private val filmDao: FilmDao

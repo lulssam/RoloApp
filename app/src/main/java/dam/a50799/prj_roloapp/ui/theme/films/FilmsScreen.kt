@@ -48,7 +48,7 @@ fun FilmScreenContent(
             onClick = onBackClick,
             modifier = Modifier.padding(8.dp)
         ) {
-            Text("Voltar")
+            Text("Back")
         }
     }
 }
@@ -67,13 +67,13 @@ fun FilmDetailScreen(
 
     film.value?.let { film ->
         Column(modifier = Modifier.padding(16.dp)) {
-            Text(text = "Nome: ${film.name}", fontFamily = Roboto, fontSize = 24.sp)
+            Text(text = "Name: ${film.name}", fontFamily = Roboto, fontSize = 24.sp)
             Text(text = "ISO: ${film.iso}")
-            Text(text = "Formato: ${film.format}")
-            Text(text = "Tipo: ${film.type}")
-            Text(text = "Descrição: ${film.description}")
+            Text(text = "Format: ${film.format}")
+            Text(text = "Type: ${film.type}")
+            Text(text = "Description: ${film.description}")
             Button(onClick = { navController.popBackStack() }) {
-                Text("Voltar")
+                Text("Back")
             }
         }
     } ?: run {
@@ -88,13 +88,6 @@ fun FilmScreen(
     viewModel: FilmViewModel,
     navController: NavController?
 ) {
-
-    //val context = LocalContext.current
-    //val filmDao = remember { AppDatabase.getDatabase(context).filmDao() }
-    /*val viewModel: FilmViewModel = viewModel(
-        factory = FilmViewModelFactory(filmDao = filmDao)
-    )*/
-
     val films by viewModel.films.collectAsState()
 
     FilmScreenContent(

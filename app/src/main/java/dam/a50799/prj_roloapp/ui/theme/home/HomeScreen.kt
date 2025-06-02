@@ -284,7 +284,7 @@ fun HomeScreen(
             navController.navigate("films")
             Log.d("NAVIGATE", "navigate to $navController")
         }, onChemicalsClick = {
-            // TODO navController.navigate("chemicals")
+            navController.navigate("chemicals")
         },
         navController = navController
     )

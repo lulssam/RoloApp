@@ -30,6 +30,10 @@ import com.google.android.gms.auth.api.identity.Identity
 import dam.a50799.prj_roloapp.ui.theme.login.LoginViewModel
 import dam.a50799.prj_roloapp.data.auth.GoogleAuthUiClient
 import dam.a50799.prj_roloapp.data.local.database.AppDatabase
+import dam.a50799.prj_roloapp.ui.theme.chemicals.ChemicalDetailScreen
+import dam.a50799.prj_roloapp.ui.theme.chemicals.ChemicalScreen
+import dam.a50799.prj_roloapp.ui.theme.chemicals.ChemicalsViewModel
+import dam.a50799.prj_roloapp.ui.theme.chemicals.ChemicalsViewModelFactory
 import dam.a50799.prj_roloapp.ui.theme.films.FilmDetailScreen
 import dam.a50799.prj_roloapp.ui.theme.films.FilmScreen
 import dam.a50799.prj_roloapp.ui.theme.films.FilmViewModel
@@ -46,6 +50,10 @@ class MainActivity : ComponentActivity() {
     private val database by lazy { AppDatabase.getDatabase(this) }
     private val filmViewModel: FilmViewModel by viewModels {
         FilmViewModelFactory(database.filmDao())
+    }
+
+    private val chemicalsViewModel: ChemicalsViewModel by viewModels {
+        ChemicalsViewModelFactory(database.chemicalDao())
     }
     private val googleAuthUiClient by lazy {
         GoogleAuthUiClient(
@@ -170,6 +178,27 @@ class MainActivity : ComponentActivity() {
                                         filmId = filmId,
                                         navController = navController,
                                         filmDao = database.filmDao()
+                                    )
+                                } else {
+                                    navController.popBackStack()
+                                }
+                            }
+
+                            composable("chemicals"){
+                                ChemicalScreen(
+                                    viewModel = chemicalsViewModel,
+                                    navController = navController
+                                )
+                            }
+
+                            composable("chemical_detail/{chemicalId}"){backStackEntry ->
+                                val chemicalId =
+                                    backStackEntry.arguments?.getString("chemicalId")?.toIntOrNull()
+                                if (chemicalId != null){
+                                    ChemicalDetailScreen(
+                                        chemicalId = chemicalId,
+                                        navController = navController,
+                                        chemicalDao = database.chemicalDao()
                                     )
                                 } else {
                                     navController.popBackStack()
