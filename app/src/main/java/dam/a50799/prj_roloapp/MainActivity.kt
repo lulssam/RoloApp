@@ -9,6 +9,7 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.IntentSenderRequest
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.activity.viewModels
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
@@ -28,6 +29,11 @@ import androidx.navigation.compose.rememberNavController
 import com.google.android.gms.auth.api.identity.Identity
 import dam.a50799.prj_roloapp.ui.theme.login.LoginViewModel
 import dam.a50799.prj_roloapp.data.auth.GoogleAuthUiClient
+import dam.a50799.prj_roloapp.data.local.database.AppDatabase
+import dam.a50799.prj_roloapp.ui.theme.films.FilmDetailScreen
+import dam.a50799.prj_roloapp.ui.theme.films.FilmScreen
+import dam.a50799.prj_roloapp.ui.theme.films.FilmViewModel
+import dam.a50799.prj_roloapp.ui.theme.films.FilmViewModelFactory
 import dam.a50799.prj_roloapp.ui.theme.home.HomeScreen
 import dam.a50799.prj_roloapp.ui.theme.register.RegisterScreen
 import dam.a50799.prj_roloapp.ui.theme.settings.SettingsScreen
@@ -36,6 +42,11 @@ import kotlinx.coroutines.launch
 
 class MainActivity : ComponentActivity() {
 
+    // criar base de dados e viewmodelfactory
+    private val database by lazy { AppDatabase.getDatabase(this) }
+    private val filmViewModel: FilmViewModel by viewModels {
+        FilmViewModelFactory(database.filmDao())
+    }
     private val googleAuthUiClient by lazy {
         GoogleAuthUiClient(
             context = applicationContext,
@@ -141,8 +152,28 @@ class MainActivity : ComponentActivity() {
                                 HomeScreen(navController = navController)
                             }
 
-                            composable("settings"){
+                            composable("settings") {
                                 SettingsScreen(navController = navController)
+                            }
+
+                            composable("films") {
+                                FilmScreen(
+                                    viewModel = filmViewModel,
+                                    navController = navController)
+                            }
+
+                            composable("film_detail/{filmId}") { backStackEntry ->
+                                val filmId =
+                                    backStackEntry.arguments?.getString("filmId")?.toIntOrNull()
+                                if (filmId != null) {
+                                    FilmDetailScreen(
+                                        filmId = filmId,
+                                        navController = navController,
+                                        filmDao = database.filmDao()
+                                    )
+                                } else {
+                                    navController.popBackStack()
+                                }
                             }
                         }
                     }

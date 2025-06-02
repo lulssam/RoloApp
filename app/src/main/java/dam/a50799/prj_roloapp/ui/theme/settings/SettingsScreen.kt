@@ -54,7 +54,7 @@ fun SettingsScreenContent(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
 
-        // top bar com botão de voltar e settings
+        // region top bar com botão de voltar e settings
         Box(
             modifier = Modifier
                 .fillMaxWidth()
@@ -71,7 +71,7 @@ fun SettingsScreenContent(
                 )
             }
 
-            Box(
+            Box( // region box settings
                 modifier = Modifier.fillMaxWidth(),
                 contentAlignment = Alignment.Center
             ) {
@@ -82,10 +82,12 @@ fun SettingsScreenContent(
                     fontWeight = FontWeight.Medium,
                     modifier = Modifier.padding(top = 8.dp)
                 )
-            }
-        }
+            } // endregion
+        } // endregion
 
         Spacer(modifier = Modifier.height(40.dp))
+
+        // region coluna opções
         Column(
             modifier = Modifier.fillMaxWidth(),
             verticalArrangement = Arrangement.spacedBy(35.dp),
@@ -95,7 +97,7 @@ fun SettingsScreenContent(
             SettingsButtons(text = "Help", onClick = onHelpClick)
             SettingsButtons(text = "Language", onClick = onLanguageClick)
             SettingsButtons(text = "About", onClick = onAboutClick)
-        }
+        } // endregion
 
     } // endregion
 }
