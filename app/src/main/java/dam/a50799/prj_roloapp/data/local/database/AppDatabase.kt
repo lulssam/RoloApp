@@ -11,13 +11,14 @@ import dam.a50799.prj_roloapp.data.local.dao.FilmDao
 import dam.a50799.prj_roloapp.data.local.entities.Chemical
 import dam.a50799.prj_roloapp.data.local.entities.Film
 import dam.a50799.prj_roloapp.utils.Converters
+import dam.a50799.prj_roloapp.utils.loadChemicalsJson
 import dam.a50799.prj_roloapp.utils.loadFilmsJson
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 
-@Database(entities = [Film::class, Chemical::class], version = 5)
+@Database(entities = [Film::class, Chemical::class], version = 9)
 @TypeConverters(Converters::class)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun filmDao(): FilmDao
@@ -43,31 +44,9 @@ abstract class AppDatabase : RoomDatabase() {
                                     getDatabase(context).filmDao().apply {
                                         films.forEach { insertFilm(it) }
                                     }
-
+                                    val chemicals = loadChemicalsJson(context)
                                     getDatabase(context).chemicalDao().apply {
-                                        insertChemical(
-                                            Chemical(
-                                                name = "Kodak D-76",
-                                                type = "Developer",
-                                                dilution = "1+1",
-                                                timeInMinutes = 9,
-                                                temperature = 20,
-                                                notes = "Standard developer for BW",
-                                                imageUri = null
-                                            )
-                                        )
-
-                                        insertChemical(
-                                            Chemical(
-                                                name = "Kodak Fixer",
-                                                type = "Fixer",
-                                                dilution = "1+4",
-                                                timeInMinutes = 5,
-                                                temperature = 20,
-                                                notes = "Standard fixer",
-                                                imageUri = null
-                                            )
-                                        ) // TODO adicionar mais quimicos
+                                        chemicals.forEach { insertChemical(it) }
                                     }
                                 }
                             }

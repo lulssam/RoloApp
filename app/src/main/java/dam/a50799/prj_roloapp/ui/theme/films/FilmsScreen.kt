@@ -20,6 +20,7 @@ import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults.cardColors
@@ -112,7 +113,8 @@ fun FilmScreenContent(
                         .dropShadow(),
                     onClick = { onFilmClick(film) },
                     colors = cardColors(containerColor = Color.White),
-                    border = BorderStroke(2.dp, cinzento)
+                    border = BorderStroke(2.dp, cinzento),
+                    shape = RoundedCornerShape(20.dp)
                 ) {
                     Column {
                         AsyncImage(
@@ -290,7 +292,8 @@ fun FilmDetailScreen(
 
 @Composable
 fun FilmScreen(
-    viewModel: FilmViewModel, navController: NavController?
+    viewModel: FilmViewModel,
+    navController: NavController?
 ) {
     val films by viewModel.films.collectAsState()
 

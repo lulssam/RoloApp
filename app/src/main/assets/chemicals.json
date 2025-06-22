@@ -1,0 +1,21 @@
+[
+  {
+    "name": "KODAK D-76",
+    "type": "DEVELOPER",
+    "dilution": "1+1",
+    "timeInMinutes": "9",
+    "temperature": 20,
+    "description" : "KODAK Developer D-76 provides full emulsion speed and excellent shadow detail with normal contrast, and produces fine grain with a variety of continuous-tone black-and-white films. For greater sharpness, but with a slight increase in graininess, you can use a 1:1 dilution of this developer. It yields a long density range, and its development latitude allows push processing with relatively low fog.",
+    "imageUri": "kodak_d76"
+  },
+
+  {
+    "name": "ILFORD RAPID FIXER",
+    "type": "FIXER",
+    "dilution": "1+4",
+    "timeInMinutes": "2-5",
+    "temperature": 20,
+    "description": "Standard fixer for BW",
+    "imageUri": "ilford_rapid_fixer"
+  }
+]

@@ -9,8 +9,8 @@ data class Chemical(
     val name: String,
     val type: String,
     val dilution: String,
-    val timeInMinutes: Int,
+    val timeInMinutes: String,
     val temperature: Int,
-    val notes: String?,
+    val description: String,
     val imageUri: String?
 )
