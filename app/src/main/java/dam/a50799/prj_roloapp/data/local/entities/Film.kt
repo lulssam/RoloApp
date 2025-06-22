@@ -12,7 +12,8 @@ data class Film(
     val format: String, // ex: 35mm
     val type: String, // ex: cor
     val description: String, // descrição do rolo
-    val imageUri: String?, // para guardar a imagem
+    val imageUri: Int?, // para guardar a imagem
+    val exampleImages: List<Int> = emptyList(),
 
     @PrimaryKey(autoGenerate =  true) val id: Int = 0 // id unico
 )

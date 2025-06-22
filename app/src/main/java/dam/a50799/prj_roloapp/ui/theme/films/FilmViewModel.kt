@@ -17,4 +17,12 @@ class FilmViewModel(
     //private val _films = MutableStateFlow<List<Film>>(emptyList())
     val films: StateFlow<List<Film>> = filmDao.getAllFilms()
         .stateIn(viewModelScope, SharingStarted.Lazily, emptyList())
+
+    init {
+        viewModelScope.launch {
+            filmDao.getAllFilms().collect { films ->
+                println("Número de filmes na base de dados: ${films.size}")
+            }
+        }
+    }
 }

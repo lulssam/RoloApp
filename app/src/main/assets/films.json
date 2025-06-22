@@ -1,0 +1,46 @@
+[
+  {
+    "name": "KODAK GOLD 200",
+    "iso": 200,
+    "format": "35mm",
+    "type": "COLOR",
+    "description": "KODAK GOLD 200 Film is a low-speed color negative film that offers an outstanding combination of color saturation, fine grain, and high sharpness. It is designed for general picture-taking situations in daylight or with electronic flash.",
+    "imageUri": "kodak_gold",
+    "exampleImages": [
+      "kodak_gold_1.jpg",
+      "kodak_gold_2.jpg",
+      "kodak_gold_3.jpg",
+      "kodak_gold_4.jpg"
+    ]
+  },
+
+  {
+    "name": "ILFORD HP5 PLUS",
+    "iso": 400,
+    "format": "35mm",
+    "type": "BLACK & WHITE",
+    "description": "ILFORD HP5 PLUS is a high speed, fine grain, medium contrast black & white film making it an excellent choice for journalism, documentary, travel, sports, action and indoor available light photography. \nNominally rated at ISO 400, HP5 PLUS produces negatives of outstanding sharpness and fine grain under all lighting conditions. \nIt’s wide exposure latitude makes it a great choice for beginners, those returning to film as well as the more experienced professional users.",
+    "imageUri": "ilford_400",
+    "exampleImages": [
+      "ilford_hp5_1.jpg",
+      "ilford_hp5_2.jpg",
+      "ilford_hp5_3.jpg"
+    ]
+  },
+
+  {
+    "name": "KODAK ULTRAMAX 400",
+    "iso": 400,
+    "format": "35mm",
+    "type": "COLOR",
+    "description": "KODAK ULTRA MAX 400 Film is a worry-free, easy-to-use high speed film designed for snapshooters. ULTRA MAX 400 Film gives you the flexibility you need to take consistently better pictures in more picture taking situations—better low-light picture quality with fewer underexposures, better results with zoom lenses, greater flash range, better \"stop-action\" photos, and reduced impact of camera shake.\nEven when enlarged, ULTRA MAX 400 Film delivers excellent sharpness and fine grain for crisp, clear pictures.\nOptimized color precision technology provides consistently bright, vibrant colors with accurate skin-tone reproduction for natural-looking people pictures.",
+    "imageUri": "kodak_ultramax_400",
+    "exampleImages": [
+      "kodak_ultramax_1.jpg",
+      "kodak_ultramax_2.jpg",
+      "kodak_ultramax_3.jpg",
+      "kodak_ultramax_4.jpg"
+    ]
+
+  }
+]

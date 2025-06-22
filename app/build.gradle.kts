@@ -94,4 +94,10 @@ dependencies {
     // room
     implementation("androidx.room:room-ktx:2.7.1")
     kapt("androidx.room:room-compiler:2.7.1")
+
+    // coil compose
+    implementation("io.coil-kt:coil-compose:2.5.0")
+
+    // json
+    implementation("com.google.code.gson:gson:2.10.1")
 }
