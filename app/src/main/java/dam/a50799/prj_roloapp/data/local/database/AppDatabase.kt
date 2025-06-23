@@ -8,8 +8,10 @@ import androidx.room.TypeConverters
 import androidx.sqlite.db.SupportSQLiteDatabase
 import dam.a50799.prj_roloapp.data.local.dao.ChemicalDao
 import dam.a50799.prj_roloapp.data.local.dao.FilmDao
+import dam.a50799.prj_roloapp.data.local.dao.UserProfileDao
 import dam.a50799.prj_roloapp.data.local.entities.Chemical
 import dam.a50799.prj_roloapp.data.local.entities.Film
+import dam.a50799.prj_roloapp.data.local.entities.UserProfile
 import dam.a50799.prj_roloapp.utils.Converters
 import dam.a50799.prj_roloapp.utils.loadChemicalsJson
 import dam.a50799.prj_roloapp.utils.loadFilmsJson
@@ -18,11 +20,12 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 
-@Database(entities = [Film::class, Chemical::class], version = 9)
+@Database(entities = [Film::class, Chemical::class, UserProfile::class], version = 10)
 @TypeConverters(Converters::class)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun filmDao(): FilmDao
     abstract fun chemicalDao(): ChemicalDao
+    abstract fun userProfileDao(): UserProfileDao
 
     companion object {
         @Volatile

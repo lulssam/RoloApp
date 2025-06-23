@@ -26,6 +26,11 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
@@ -38,6 +43,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
+import com.google.firebase.Firebase
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 import dam.a50799.prj_roloapp.ui.theme.Roboto
 import dam.a50799.prj_roloapp.ui.theme.amareloTorrado
 import dam.a50799.prj_roloapp.R
@@ -59,7 +67,8 @@ fun HomeScreenContent(
     onTimerClick: () -> Unit,
     onFilmsClick: () -> Unit,
     onChemicalsClick: () -> Unit,
-    navController: NavController?
+    navController: NavController?,
+    userName: String
 ) {
 
     // region Box principal
@@ -86,7 +95,7 @@ fun HomeScreenContent(
         } // endregion
         // region texto inicial
         Text(
-            text = "Hello, Luísa",
+            text = "Hello, $userName",
             fontSize = 28.sp,
             fontFamily = Roboto,
             fontWeight = FontWeight.Light,
@@ -271,11 +280,29 @@ fun HomeScreenContent(
 fun HomeScreen(
     viewModel: HomeViewModel = viewModel(), navController: NavController
 ) {
+
+    val user = remember { FirebaseAuth.getInstance().currentUser }
+    var userName by remember { mutableStateOf("User") }
+
+    // carregar dados do perfil
+    LaunchedEffect(user) {
+        if (user != null){
+            val db = FirebaseFirestore.getInstance()
+            db.collection("users").document(user.uid).get()
+                .addOnSuccessListener { document ->
+                    userName = document.getString("name") ?: "User"
+                }
+                .addOnFailureListener { e ->
+                    Log.e("HomeScreen","Error loading profile", e)
+                }
+        }
+    }
+
     HomeScreenContent(
         onSBSClick = {
             // TODO navController.navigate("step_by_step")
         }, onProfileClick = {
-            // TODO navController.navigate("profile")
+            navController.navigate("profile")
         }, onSettingsClick = {
             navController.navigate("settings")
         }, onTimerClick = {
@@ -286,7 +313,8 @@ fun HomeScreen(
         }, onChemicalsClick = {
             navController.navigate("chemicals")
         },
-        navController = navController
+        navController = navController,
+        userName = userName
     )
 }
 
@@ -300,6 +328,7 @@ fun HomeScreenPreview() {
         onTimerClick = {},
         onFilmsClick = {},
         onChemicalsClick = {},
-        navController = null
+        navController = null,
+        userName = "Madalena"
     )
 }

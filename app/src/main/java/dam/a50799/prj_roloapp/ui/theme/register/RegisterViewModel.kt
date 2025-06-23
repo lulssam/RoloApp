@@ -1,15 +1,18 @@
 package dam.a50799.prj_roloapp.ui.theme.register
 
+import android.util.Log
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import dam.a50799.prj_roloapp.data.local.database.AppDatabase
+import dam.a50799.prj_roloapp.data.local.entities.UserProfile
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 
-class RegisterViewModel : ViewModel() {
+class RegisterViewModel(/*private val database: AppDatabase*/) : ViewModel(){
     var email = mutableStateOf("")
     var password = mutableStateOf("")
     var verifyPassword = mutableStateOf("")
@@ -71,7 +74,11 @@ class RegisterViewModel : ViewModel() {
             }
     }
 
-    fun saveUserProfile(name: String, onComplete: (Boolean) -> Unit) {
+    fun saveUserProfile(
+        name: String,
+        age: String,
+        favFilm: String,
+        onComplete: (Boolean) -> Unit) {
         val user = FirebaseAuth.getInstance().currentUser ?: run {
             onComplete(false)
             return
@@ -81,13 +88,21 @@ class RegisterViewModel : ViewModel() {
 
         val userData = hashMapOf(
             "name" to name,
-            "email" to user.email
+            "email" to user.email,
+            "age" to age,
+            "favFilm" to favFilm
         )
 
         db.collection("users").document(user.uid)
             .set(userData)
-            .addOnSuccessListener { onComplete(true) }
-            .addOnFailureListener { onComplete(false) }
+            .addOnSuccessListener {
+                Log.d("RegisterVM", "Profile saved successfully")
+                onComplete(true)
+            }
+            .addOnFailureListener { e ->
+                Log.e("RegisterVM", "Error saving profile", e)
+                onComplete(false)
+            }
     }
 
 }

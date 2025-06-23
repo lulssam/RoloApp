@@ -2,6 +2,7 @@ package dam.a50799.prj_roloapp.ui.theme.register
 
 import android.widget.Toast
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -32,7 +33,8 @@ fun RegisterScreenContent(
     onEmailChange: (String) -> Unit,
     onPasswordChange: (String) -> Unit,
     onVerifyPasswordChange: (String) -> Unit,
-    onRegisterClick: () -> Unit
+    onRegisterClick: () -> Unit,
+    onBackClick: () -> Unit,
 ) {
     // region Coluna principal
     Column(
@@ -162,7 +164,17 @@ fun RegisterScreenContent(
                 fontWeight = FontWeight.Medium,
                 letterSpacing = 1.sp
             )
+
         } // endregion
+        Spacer(modifier = Modifier.height(30.dp))
+
+        Text(
+            text = "Voltar a Login",
+            fontSize = 15.sp,
+            fontFamily = Roboto,
+            fontWeight = FontWeight.Light,
+            modifier = Modifier.clickable { onBackClick() }
+        )
     } // endregion
 }
 
@@ -184,13 +196,14 @@ fun RegisterScreen(
             viewModel.registerUser(
                 onSuccess = {
                     Toast.makeText(context, "Registration successful!", Toast.LENGTH_LONG).show()
-                    navController.navigate("sign_in") // voltar para login
+                    navController.navigate("welcome_name") // ir diretamente para welcomescreen
                 },
                 onFailure = {
                     Toast.makeText(context, it, Toast.LENGTH_LONG).show()
                 }
             )
-        }
+        },
+        onBackClick = { navController.popBackStack() }
     )
 }
 
@@ -204,6 +217,7 @@ fun RegisterScreenPreview() {
         onEmailChange = {},
         onPasswordChange = {},
         onVerifyPasswordChange = {},
-        onRegisterClick = {}
+        onRegisterClick = {},
+        onBackClick = {}
     )
 }

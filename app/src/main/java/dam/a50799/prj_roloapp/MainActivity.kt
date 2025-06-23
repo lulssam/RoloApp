@@ -39,8 +39,15 @@ import dam.a50799.prj_roloapp.ui.theme.films.FilmScreen
 import dam.a50799.prj_roloapp.ui.theme.films.FilmViewModel
 import dam.a50799.prj_roloapp.ui.theme.films.FilmViewModelFactory
 import dam.a50799.prj_roloapp.ui.theme.home.HomeScreen
+import dam.a50799.prj_roloapp.ui.theme.profile.ProfileScreen
 import dam.a50799.prj_roloapp.ui.theme.register.RegisterScreen
 import dam.a50799.prj_roloapp.ui.theme.settings.SettingsScreen
+import dam.a50799.prj_roloapp.ui.theme.welcome.WelcomeFilmScreen
+import dam.a50799.prj_roloapp.ui.theme.welcome.WelcomeNameScreen
+import dam.a50799.prj_roloapp.ui.theme.welcome.WelcomeNameScreenContent
+import dam.a50799.prj_roloapp.ui.theme.welcome.WelcomeScreenAge
+import dam.a50799.prj_roloapp.ui.theme.welcome.WelcomeSummaryScreen
+import dam.a50799.prj_roloapp.ui.theme.welcome.WelcomeViewModel
 import kotlinx.coroutines.launch
 
 
@@ -75,6 +82,7 @@ class MainActivity : ComponentActivity() {
                         color = MaterialTheme.colorScheme.background
                     ) {
                         val navController = rememberNavController()
+                        val welcomeViewModel: WelcomeViewModel = viewModel()
 
                         NavHost(navController = navController, startDestination = "splash") {
 
@@ -164,6 +172,10 @@ class MainActivity : ComponentActivity() {
                                 SettingsScreen(navController = navController)
                             }
 
+                            composable("profile"){
+                                ProfileScreen(navController = navController)
+                            }
+
                             composable("films") {
                                 FilmScreen(
                                     viewModel = filmViewModel,
@@ -203,6 +215,19 @@ class MainActivity : ComponentActivity() {
                                 } else {
                                     navController.popBackStack()
                                 }
+                            }
+
+                            composable("welcome_name"){
+                                WelcomeNameScreen(navController, welcomeViewModel)
+                            }
+                            composable("welcome_age"){
+                                WelcomeScreenAge(navController, welcomeViewModel)
+                            }
+                            composable("welcome_favFilm"){
+                                WelcomeFilmScreen(navController, welcomeViewModel)
+                            }
+                            composable("welcome_summary"){
+                                WelcomeSummaryScreen(navController, welcomeViewModel)
                             }
                         }
                     }

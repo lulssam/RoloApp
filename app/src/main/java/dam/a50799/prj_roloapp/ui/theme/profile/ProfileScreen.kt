@@ -16,6 +16,11 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -28,7 +33,10 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 import dam.a50799.prj_roloapp.R
+import dam.a50799.prj_roloapp.data.local.entities.UserProfile
 import dam.a50799.prj_roloapp.ui.theme.Roboto
 import dam.a50799.prj_roloapp.ui.theme.home.HomeScreenContent
 import dam.a50799.prj_roloapp.ui.theme.laranja
@@ -41,7 +49,8 @@ fun ProfileScreenContent(
     onSettingsClick: () -> Unit,
     onEditClick: () -> Unit,
     onSaveClick: () -> Unit,
-    navController: NavController?
+    navController: NavController?,
+    userProfile: UserProfile?
 ) {
     Box(
         modifier = Modifier
@@ -98,7 +107,7 @@ fun ProfileScreenContent(
             Spacer(modifier = Modifier.height(12.dp))
 
             Text(
-                text = "Luísa", // TODO mudar para pessoa que tem sessão iniciada
+                text = userProfile?.name ?: "User",
                 fontSize = 36.sp,
                 fontFamily = Roboto,
                 fontWeight = FontWeight.Bold,
@@ -107,7 +116,7 @@ fun ProfileScreenContent(
                 )
 
             Text(
-                text = "bio", //TODO mudar
+                text = "Age: ${userProfile?.age ?: "Not set"}",
                 fontSize = 20.sp,
                 fontFamily = Roboto,
                 fontWeight = FontWeight.Medium,
@@ -115,7 +124,7 @@ fun ProfileScreenContent(
             )
 
             Text(
-                text = "Favorite Film:",
+                text = "Favorite Film: ${userProfile?.favFilm ?: "Not set"}",
                 fontSize = 14.sp,
                 fontFamily = Roboto,
                 fontWeight = FontWeight.Light,
@@ -137,14 +146,14 @@ fun ProfileScreenContent(
             ),
             border = BorderStroke(2.dp, Color.Black)
 
-            ) {
+        ) {
             Text(
                 "Save Changes",
                 fontSize = 24.sp,
                 fontFamily = Roboto,
                 fontWeight = FontWeight.Medium,
 
-            )
+                )
         }
 
     }
@@ -152,8 +161,28 @@ fun ProfileScreenContent(
 
 @Composable
 fun ProfileScreen(
-    viewModel: ProfileViewModel = viewModel(), navController: NavController
+    navController: NavController
 ) {
+
+    val user = remember { FirebaseAuth.getInstance().currentUser }
+    var userProfile by remember { mutableStateOf<UserProfile?>(null) }
+
+    // carregar os dados do perfil
+    LaunchedEffect(user) {
+        if (user != null) {
+            val db = FirebaseFirestore.getInstance()
+            db.collection("users").document(user.uid).get()
+                .addOnSuccessListener { document ->
+                    userProfile = UserProfile(
+                        uid = user.uid,
+                        name = document.getString("name") ?: "",
+                        age = document.getString("age") ?: "",
+                        favFilm = document.getString("favFilm") ?: ""
+                    )
+                }
+        }
+    }
+
     ProfileScreenContent(
         onBackClick = {
             navController.popBackStack()
@@ -164,7 +193,8 @@ fun ProfileScreen(
         }, onSaveClick = {
             navController.navigate("homescreen")
         },
-        navController = navController
+        navController = navController,
+        userProfile = userProfile
     )
 }
 
@@ -176,6 +206,7 @@ fun ProfileScreenPreview() {
         onSettingsClick = {},
         onEditClick = {},
         onSaveClick = {},
-        navController = null
+        navController = null,
+        userProfile = null
     )
 }
