@@ -42,6 +42,9 @@ import dam.a50799.prj_roloapp.ui.theme.home.HomeScreen
 import dam.a50799.prj_roloapp.ui.theme.profile.ProfileScreen
 import dam.a50799.prj_roloapp.ui.theme.register.RegisterScreen
 import dam.a50799.prj_roloapp.ui.theme.settings.SettingsScreen
+import dam.a50799.prj_roloapp.ui.theme.settings.about.AboutScreen
+import dam.a50799.prj_roloapp.ui.theme.settings.account.AccountScreen
+import dam.a50799.prj_roloapp.ui.theme.settings.help.HelpScreen
 import dam.a50799.prj_roloapp.ui.theme.welcome.WelcomeFilmScreen
 import dam.a50799.prj_roloapp.ui.theme.welcome.WelcomeNameScreen
 import dam.a50799.prj_roloapp.ui.theme.welcome.WelcomeNameScreenContent
@@ -227,8 +230,23 @@ class MainActivity : ComponentActivity() {
                                 WelcomeFilmScreen(navController, welcomeViewModel)
                             }
                             composable("welcome_summary"){
-                                WelcomeSummaryScreen(navController, welcomeViewModel)
+                                  WelcomeSummaryScreen(navController, welcomeViewModel)
                             }
+                            composable("account_page"){
+                                AccountScreen((navController))
+                            }
+                            composable("help_page"){
+                                HelpScreen(navController)
+                            }
+
+                            composable("language_page"){
+                                /*TODO*/
+                            }
+
+                            composable("about_page"){
+                                AboutScreen(navController)
+                            }
+
                         }
                     }
                 }

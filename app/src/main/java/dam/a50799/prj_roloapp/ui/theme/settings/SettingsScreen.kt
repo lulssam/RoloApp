@@ -146,10 +146,10 @@ fun SettingsButtons(
 @Composable
 fun SettingsScreen(navController: NavController) {
     SettingsScreenContent(
-        onAccountClick = {},
-        onHelpClick = {},
-        onLanguageClick = {},
-        onAboutClick = {},
+        onAccountClick = {navController.navigate("account_page")},
+        onHelpClick = {navController.navigate("help_page")},
+        onLanguageClick = {navController.navigate("language_page")},
+        onAboutClick = {navController.navigate("about_page")},
         navController = navController
     )
 }
