@@ -41,6 +41,20 @@
       "kodak_ultramax_3.jpg",
       "kodak_ultramax_4.jpg"
     ]
+  },
 
+  {
+    "name": "KODAK COLORPLUS 200",
+    "iso": 200,
+    "format": "35mm",
+    "type": "COLOR",
+    "description": "Kodak ColorPlus 200 is a low-sensitivity color negative film that delivers warm tones, natural colors, and fine grain. Popular for its affordable price and classic nostalgic look, it performs well in natural light or with flash, making it ideal for casual photography, travel, and portraits in both indoor and outdoor settings.",
+    "imageUri": "kodak_ultramax_400",
+    "exampleImages": [
+      "kodak_colorplus_1.jpg",
+      "kodak_colorplus_2.jpg",
+      "kodak_colorplus_3.jpg",
+      "kodak_colorplus_4.jpg"
+    ]
   }
 ]

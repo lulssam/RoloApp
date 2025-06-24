@@ -300,7 +300,7 @@ fun HomeScreen(
 
     HomeScreenContent(
         onSBSClick = {
-            // TODO navController.navigate("step_by_step")
+            navController.navigate("guide")
         }, onProfileClick = {
             navController.navigate("profile")
         }, onSettingsClick = {

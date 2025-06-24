@@ -38,6 +38,12 @@ import dam.a50799.prj_roloapp.ui.theme.films.FilmDetailScreen
 import dam.a50799.prj_roloapp.ui.theme.films.FilmScreen
 import dam.a50799.prj_roloapp.ui.theme.films.FilmViewModel
 import dam.a50799.prj_roloapp.ui.theme.films.FilmViewModelFactory
+import dam.a50799.prj_roloapp.ui.theme.guide.GuideScreen
+import dam.a50799.prj_roloapp.ui.theme.guide.GuideViewModel
+import dam.a50799.prj_roloapp.ui.theme.guide.develop.DevelopStepScreenContent
+import dam.a50799.prj_roloapp.ui.theme.guide.develop.DevelopViewModel
+import dam.a50799.prj_roloapp.ui.theme.guide.process.ProcessDataScreen
+import dam.a50799.prj_roloapp.ui.theme.guide.process.ProcessDataViewModel
 import dam.a50799.prj_roloapp.ui.theme.home.HomeScreen
 import dam.a50799.prj_roloapp.ui.theme.profile.ProfileScreen
 import dam.a50799.prj_roloapp.ui.theme.register.RegisterScreen
@@ -175,14 +181,15 @@ class MainActivity : ComponentActivity() {
                                 SettingsScreen(navController = navController)
                             }
 
-                            composable("profile"){
+                            composable("profile") {
                                 ProfileScreen(navController = navController)
                             }
 
                             composable("films") {
                                 FilmScreen(
                                     viewModel = filmViewModel,
-                                    navController = navController)
+                                    navController = navController
+                                )
                             }
 
                             composable("film_detail/{filmId}") { backStackEntry ->
@@ -199,17 +206,17 @@ class MainActivity : ComponentActivity() {
                                 }
                             }
 
-                            composable("chemicals"){
+                            composable("chemicals") {
                                 ChemicalScreen(
                                     viewModel = chemicalsViewModel,
                                     navController = navController
                                 )
                             }
 
-                            composable("chemical_detail/{chemicalId}"){backStackEntry ->
+                            composable("chemical_detail/{chemicalId}") { backStackEntry ->
                                 val chemicalId =
                                     backStackEntry.arguments?.getString("chemicalId")?.toIntOrNull()
-                                if (chemicalId != null){
+                                if (chemicalId != null) {
                                     ChemicalDetailScreen(
                                         chemicalId = chemicalId,
                                         navController = navController,
@@ -220,33 +227,58 @@ class MainActivity : ComponentActivity() {
                                 }
                             }
 
-                            composable("welcome_name"){
+                            composable("welcome_name") {
                                 WelcomeNameScreen(navController, welcomeViewModel)
                             }
-                            composable("welcome_age"){
+                            composable("welcome_age") {
                                 WelcomeScreenAge(navController, welcomeViewModel)
                             }
-                            composable("welcome_favFilm"){
+                            composable("welcome_favFilm") {
                                 WelcomeFilmScreen(navController, welcomeViewModel)
                             }
-                            composable("welcome_summary"){
-                                  WelcomeSummaryScreen(navController, welcomeViewModel)
+                            composable("welcome_summary") {
+                                WelcomeSummaryScreen(navController, welcomeViewModel)
                             }
-                            composable("account_page"){
+                            composable("account_page") {
                                 AccountScreen((navController))
                             }
-                            composable("help_page"){
+                            composable("help_page") {
                                 HelpScreen(navController)
                             }
 
-                            composable("language_page"){
+                            composable("language_page") {
                                 /*TODO*/
                             }
 
-                            composable("about_page"){
+                            composable("about_page") {
                                 AboutScreen(navController)
                             }
 
+                            composable("guide") {
+                                val guideViewModel: GuideViewModel = viewModel()
+                                GuideScreen(
+                                    viewModel = guideViewModel,
+                                    navController = navController
+                                )
+                            }
+
+                            composable("process") { backStackEntry ->
+                                val viewModelStoreOwner = backStackEntry.viewModelStore
+                                ProcessDataScreen(
+                                    onProcessClick = { film, developer, fixer ->
+                                        navController.navigate("develop")
+                                    },
+                                    navController = navController
+                                )
+                            }
+
+                            composable("develop") {
+                                val viewModel: DevelopViewModel = viewModel()
+                                DevelopStepScreenContent(
+                                    viewModel = viewModel,
+                                    navController = navController
+                                )
+                            }
                         }
                     }
                 }

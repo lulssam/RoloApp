@@ -15,3 +15,4 @@ val cinzento = Color(0xD6D6D6D6)
 
 val background = Color(0xFFFFF4EC)
 val laranja = Color(0xFFFE7B2B)
+val azulinho = Color(0xFFEFF7FF)
