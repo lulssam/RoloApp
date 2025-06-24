@@ -1,13 +1,11 @@
 package dam.a50799.prj_roloapp.ui.theme.settings
 
-import android.widget.Button
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -32,7 +30,6 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import dam.a50799.prj_roloapp.R
 import dam.a50799.prj_roloapp.ui.theme.Roboto
-import dam.a50799.prj_roloapp.ui.theme.amareloTorrado
 import dam.a50799.prj_roloapp.ui.theme.cinzento
 import dam.a50799.prj_roloapp.utils.dropShadow
 
@@ -58,7 +55,7 @@ fun SettingsScreenContent(
         Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(bottom = 24.dp),
+                .padding(bottom = 24.dp)
         ) {
             IconButton(
                 onClick = { navController?.popBackStack() },

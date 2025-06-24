@@ -2,8 +2,6 @@ package dam.a50799.prj_roloapp.utils
 
 import android.content.Context
 import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
-import dam.a50799.prj_roloapp.data.ai.models.StepInstruction
 import dam.a50799.prj_roloapp.data.local.entities.Chemical
 import dam.a50799.prj_roloapp.data.local.entities.Film
 
@@ -84,20 +82,5 @@ fun loadChemicalsJson(context: Context): List<Chemical> {
             description = chemicalJson.description,
             imageUri = thumbId.toString()
         )
-    }
-}
-
-object JsonUtils {
-    fun parseInstructions(json: String): List<StepInstruction> {
-        return try {
-            Gson().fromJson(json, Array<StepInstruction>::class.java).toList()
-        } catch (e: Exception) {
-            listOf(
-                StepInstruction(
-                    name = "Erro de Parsing",
-                    instruction = "Formato de resposta inválido: ${e.message}"
-                )
-            )
-        }
     }
 }

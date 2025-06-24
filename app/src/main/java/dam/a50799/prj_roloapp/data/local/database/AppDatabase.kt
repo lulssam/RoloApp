@@ -20,7 +20,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 
-@Database(entities = [Film::class, Chemical::class, UserProfile::class], version = 13)
+@Database(entities = [Film::class, Chemical::class, UserProfile::class], version = 14)
 @TypeConverters(Converters::class)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun filmDao(): FilmDao

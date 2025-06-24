@@ -21,15 +21,13 @@ import androidx.compose.ui.Modifier
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.viewmodel.compose.viewModel
-import dam.a50799.prj_roloapp.ui.theme.PRJ_RoloAppTheme
-import dam.a50799.prj_roloapp.ui.theme.login.LoginScreen
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.google.android.gms.auth.api.identity.Identity
-import dam.a50799.prj_roloapp.ui.theme.login.LoginViewModel
 import dam.a50799.prj_roloapp.data.auth.GoogleAuthUiClient
 import dam.a50799.prj_roloapp.data.local.database.AppDatabase
+import dam.a50799.prj_roloapp.ui.theme.PRJ_RoloAppTheme
 import dam.a50799.prj_roloapp.ui.theme.chemicals.ChemicalDetailScreen
 import dam.a50799.prj_roloapp.ui.theme.chemicals.ChemicalScreen
 import dam.a50799.prj_roloapp.ui.theme.chemicals.ChemicalsViewModel
@@ -40,11 +38,15 @@ import dam.a50799.prj_roloapp.ui.theme.films.FilmViewModel
 import dam.a50799.prj_roloapp.ui.theme.films.FilmViewModelFactory
 import dam.a50799.prj_roloapp.ui.theme.guide.GuideScreen
 import dam.a50799.prj_roloapp.ui.theme.guide.GuideViewModel
-import dam.a50799.prj_roloapp.ui.theme.guide.develop.DevelopStepScreenContent
-import dam.a50799.prj_roloapp.ui.theme.guide.develop.DevelopViewModel
 import dam.a50799.prj_roloapp.ui.theme.guide.process.ProcessDataScreen
 import dam.a50799.prj_roloapp.ui.theme.guide.process.ProcessDataViewModel
+import dam.a50799.prj_roloapp.ui.theme.guide.process.develop.DeveloperScreen
+import dam.a50799.prj_roloapp.ui.theme.guide.process.fixer.FixerScreen
+import dam.a50799.prj_roloapp.ui.theme.guide.process.stopbath.StopBathScreen
+import dam.a50799.prj_roloapp.ui.theme.guide.process.wash.WashScreen
 import dam.a50799.prj_roloapp.ui.theme.home.HomeScreen
+import dam.a50799.prj_roloapp.ui.theme.login.LoginScreen
+import dam.a50799.prj_roloapp.ui.theme.login.LoginViewModel
 import dam.a50799.prj_roloapp.ui.theme.profile.ProfileScreen
 import dam.a50799.prj_roloapp.ui.theme.register.RegisterScreen
 import dam.a50799.prj_roloapp.ui.theme.settings.SettingsScreen
@@ -53,7 +55,6 @@ import dam.a50799.prj_roloapp.ui.theme.settings.account.AccountScreen
 import dam.a50799.prj_roloapp.ui.theme.settings.help.HelpScreen
 import dam.a50799.prj_roloapp.ui.theme.welcome.WelcomeFilmScreen
 import dam.a50799.prj_roloapp.ui.theme.welcome.WelcomeNameScreen
-import dam.a50799.prj_roloapp.ui.theme.welcome.WelcomeNameScreenContent
 import dam.a50799.prj_roloapp.ui.theme.welcome.WelcomeScreenAge
 import dam.a50799.prj_roloapp.ui.theme.welcome.WelcomeSummaryScreen
 import dam.a50799.prj_roloapp.ui.theme.welcome.WelcomeViewModel
@@ -92,6 +93,7 @@ class MainActivity : ComponentActivity() {
                     ) {
                         val navController = rememberNavController()
                         val welcomeViewModel: WelcomeViewModel = viewModel()
+                        val processViewModel: ProcessDataViewModel = viewModel()
 
                         NavHost(navController = navController, startDestination = "splash") {
 
@@ -262,22 +264,24 @@ class MainActivity : ComponentActivity() {
                                 )
                             }
 
-                            composable("process") { backStackEntry ->
-                                val viewModelStoreOwner = backStackEntry.viewModelStore
-                                ProcessDataScreen(
-                                    onProcessClick = { film, developer, fixer ->
-                                        navController.navigate("develop")
-                                    },
-                                    navController = navController
-                                )
+                            composable("process"){
+                                ProcessDataScreen(processViewModel, navController)
                             }
 
-                            composable("develop") {
-                                val viewModel: DevelopViewModel = viewModel()
-                                DevelopStepScreenContent(
-                                    viewModel = viewModel,
-                                    navController = navController
-                                )
+                            composable("develop"){
+                                DeveloperScreen(processViewModel, navController)
+                            }
+
+                            composable("stop_bath"){
+                                StopBathScreen(navController)
+                            }
+
+                            composable("fixer"){
+                                FixerScreen(processViewModel, navController)
+                            }
+
+                            composable("wash"){
+                                WashScreen(navController)
                             }
                         }
                     }

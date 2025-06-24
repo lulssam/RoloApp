@@ -1,38 +1,100 @@
 package dam.a50799.prj_roloapp.ui.theme.guide.process
 
-import android.util.Log
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import dam.a50799.prj_roloapp.data.local.entities.Chemical
-import dam.a50799.prj_roloapp.data.local.entities.Film
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
-class ProcessDataViewModel(
-    initialFilms: List<Film>,
-    initialChemicals: List<Chemical>
-) : ViewModel() {
-    val films = initialFilms
-    val chemicals = initialChemicals
+class ProcessDataViewModel: ViewModel() {
+    var film by mutableStateOf("")
+    var developer by mutableStateOf("")
+    var fixer by mutableStateOf("")
 
-    val selectedFilm = mutableStateOf<Film?>(null)
-    val selectedDeveloper = mutableStateOf<Chemical?>(null)
-    val selectedFixer = mutableStateOf<Chemical?>(null)
+    var developTime by mutableStateOf(0)
+    var fixerTime by mutableStateOf(0)
+    var temperature by mutableStateOf(20)
 
-    val developers = chemicals.filter { it.type == "DEVELOPER" }
-    val fixers = chemicals.filter { it.type == "FIXER" }
+    private var chemicals: List<Chemical> = emptyList()
 
-    fun selectFilm(film: Film) {
-        selectedFilm.value = film
-        Log.d("ProcessDebug", "Selected film: ${film.name}")
+    var currentTime by mutableStateOf(developTime)
+    private set
+
+    private var timerJob: Job? = null
+    fun setChemicals(chemicalList: List<Chemical>){
+        chemicals = chemicalList
     }
 
-    fun selectDeveloper(developer: Chemical) {
-        selectedDeveloper.value = developer
-        Log.d("ProcessDebug", "Selected developer: ${developer.name}")
+    fun onFilmChange(newFilm: String) {
+        film = newFilm
     }
 
-    fun selectFixer(fixer: Chemical) {
-        selectedFixer.value = fixer
-        Log.d("ProcessDebug", "Selected fixer: ${fixer.name}")
+    fun onDeveloperChange(newDeveloper: String) {
+        developer = newDeveloper
+
+        // atualizar tempos e temperatura
+        chemicals.find { it.name.equals(newDeveloper, ignoreCase = true) }?.let { chemical ->
+            developTime = parseTimeToSeconds(chemical.timeInMinutes)
+            temperature = chemical.temperature
+        }
+    }
+
+    fun onFixerChange(newFixer: String) {
+        fixer = newFixer
+
+        chemicals.find { it.name.equals(newFixer, ignoreCase = true)}?.let { chemical ->
+            fixerTime = parseTimeToSeconds(chemical.timeInMinutes)
+        }
+    }
+
+    fun startDevelopTimer() {
+        timerJob?.cancel() // cancela anterior se existir
+        currentTime = developTime
+        timerJob = viewModelScope.launch {
+            while (currentTime > 0) {
+                delay(1000)
+                currentTime -= 1
+            }
+        }
+    }
+
+    fun stopTimer() {
+        timerJob?.cancel()
+    }
+
+    private fun parseTimeToSeconds(timeString: String): Int {
+        return when {
+            timeString.contains(":") -> {
+                val parts = timeString.split(":")
+                val minutes = parts[0].toIntOrNull() ?: 0
+                val seconds = parts[1].toIntOrNull() ?: 0
+                minutes * 60 + seconds
+            }
+            timeString.contains("-") -> {
+                // intervalo tipo "2-5" → usar o médio
+                val parts = timeString.split("-")
+                val min = parts[0].toIntOrNull() ?: 0
+                val max = parts[1].toIntOrNull() ?: 0
+                ((min + max) / 2) * 60
+            }
+            else -> {
+                (timeString.toIntOrNull() ?: 0) * 60
+            }
+        }
+    }
+
+    fun startFixerTimer() {
+        timerJob?.cancel()
+        currentTime = fixerTime
+        timerJob = viewModelScope.launch {
+            while (currentTime > 0) {
+                delay(1000)
+                currentTime -= 1
+            }
+        }
     }
 }
-
