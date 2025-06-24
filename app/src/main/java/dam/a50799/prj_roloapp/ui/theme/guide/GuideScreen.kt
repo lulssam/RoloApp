@@ -86,6 +86,7 @@ fun GuideScreenContent(
         ) {
             Spacer(modifier = Modifier.height(50.dp))
 
+            // box da imagem
             Box(
                 modifier = Modifier
                     .width(300.dp)

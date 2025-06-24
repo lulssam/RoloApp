@@ -44,8 +44,6 @@ fun WelcomeAgeContent(
     ) {
         AutoResizeTitle(text = "Hello $userName!")
 
-        //Spacer(modifier = Modifier.height(48.dp))
-
         Column(
             modifier = Modifier.fillMaxWidth(),
             horizontalAlignment = Alignment.CenterHorizontally
@@ -133,7 +131,7 @@ fun WelcomeScreenAge(
 @Composable
 fun WelcomeAgeContentPreview() {
     WelcomeAgeContent(
-        userName = "Matilde",
+        userName = "Mariana",
         age = "25",
         onAgeChange = {},
         onNextClick = {}
@@ -144,6 +142,7 @@ fun WelcomeAgeContentPreview() {
 fun AutoResizeTitle(text: String) {
     var fontSize by remember { mutableStateOf(64.sp) }
     var parentWidth by remember { mutableStateOf(0f) }
+    var textWidth by remember { mutableStateOf(0f) }
     val density = LocalDensity.current
 
     LaunchedEffect(text, parentWidth) {
@@ -155,36 +154,47 @@ fun AutoResizeTitle(text: String) {
         }
 
         var currentSize = 64f
-        var textWidth: Float
+        var lastFitSize = 12f
 
-        do {
+        while (currentSize >= 12f) {
             val sizePx = with(density) { currentSize.sp.toPx() }
             paint.textSize = sizePx
-            textWidth = paint.measureText(text)
+            val measuredWidth = paint.measureText(text)
 
-            if (textWidth > parentWidth && currentSize > 12) {
-                currentSize -= 1f
-            } else {
+            if (measuredWidth <= parentWidth) {
+                lastFitSize = currentSize
+                textWidth = measuredWidth
                 break
             }
-        } while (true)
+            currentSize -= 1f
+        }
 
-        fontSize = currentSize.sp
+        fontSize = lastFitSize.sp
     }
 
-    Text(
-        text = text,
-        fontFamily = Roboto,
-        fontSize = fontSize,
-        fontWeight = FontWeight.Black,
-        maxLines = 1,
-        overflow = TextOverflow.Clip,
-        softWrap = false,
+    Box(
         modifier = Modifier
             .fillMaxWidth()
             .padding(horizontal = 16.dp)
             .onGloballyPositioned {
                 parentWidth = it.size.width.toFloat()
+            },
+        contentAlignment = Alignment.Center
+    ) {
+        Text(
+            text = text,
+            fontFamily = Roboto,
+            fontSize = fontSize,
+            fontWeight = FontWeight.Black,
+            maxLines = 1,
+            overflow = TextOverflow.Visible,
+            softWrap = false,
+            modifier = Modifier.offset {
+                IntOffset(
+                    x = ((parentWidth - textWidth) / 2).toInt(),
+                    y = 0
+                )
             }
-    )
+        )
+    }
 }

@@ -56,13 +56,15 @@ fun WelcomeFilmScreenContent(
         verticalArrangement = Arrangement.SpaceBetween,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Text(
+        /*Text(
             text = "Hello $userName!",
             fontFamily = Roboto,
             fontSize = 64.sp,
             fontWeight = FontWeight.Black,
             modifier = Modifier.padding(top = 60.dp)
-        )
+        )*/
+
+        AutoResizeTitle(text = "Hello $userName!")
 
         Column(
             modifier = Modifier.fillMaxWidth(),
@@ -73,7 +75,8 @@ fun WelcomeFilmScreenContent(
                 "What's your favorite film?",
                 fontSize = 32.sp,
                 fontWeight = FontWeight.Light,
-                fontFamily = Roboto
+                fontFamily = Roboto,
+                lineHeight = 40.sp
             )
             Spacer(Modifier.height(24.dp))
 

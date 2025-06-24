@@ -43,6 +43,7 @@ import dam.a50799.prj_roloapp.ui.theme.guide.process.ProcessDataViewModel
 import dam.a50799.prj_roloapp.ui.theme.guide.process.develop.DeveloperScreen
 import dam.a50799.prj_roloapp.ui.theme.guide.process.fixer.FixerScreen
 import dam.a50799.prj_roloapp.ui.theme.guide.process.stopbath.StopBathScreen
+import dam.a50799.prj_roloapp.ui.theme.guide.process.stopbath.SummaryScreen
 import dam.a50799.prj_roloapp.ui.theme.guide.process.wash.WashScreen
 import dam.a50799.prj_roloapp.ui.theme.home.HomeScreen
 import dam.a50799.prj_roloapp.ui.theme.login.LoginScreen
@@ -56,7 +57,6 @@ import dam.a50799.prj_roloapp.ui.theme.settings.help.HelpScreen
 import dam.a50799.prj_roloapp.ui.theme.welcome.WelcomeFilmScreen
 import dam.a50799.prj_roloapp.ui.theme.welcome.WelcomeNameScreen
 import dam.a50799.prj_roloapp.ui.theme.welcome.WelcomeScreenAge
-import dam.a50799.prj_roloapp.ui.theme.welcome.WelcomeSummaryScreen
 import dam.a50799.prj_roloapp.ui.theme.welcome.WelcomeViewModel
 import kotlinx.coroutines.launch
 
@@ -239,7 +239,7 @@ class MainActivity : ComponentActivity() {
                                 WelcomeFilmScreen(navController, welcomeViewModel)
                             }
                             composable("welcome_summary") {
-                                WelcomeSummaryScreen(navController, welcomeViewModel)
+                                SummaryScreen(navController, welcomeViewModel)
                             }
                             composable("account_page") {
                                 AccountScreen((navController))

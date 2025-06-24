@@ -56,8 +56,7 @@ fun HelpScreen(
             text = "1. Set up your profile with your name, age, and favorite film stock.\n" +
                     "2. Browse films and chemicals.\n" +
                     "3. Start a new development session.\n" +
-                    "4. Follow the step-by-step guide with AI-generated recipes.\n" +
-                    "5. Save your results and notes.\n",
+                    "4. Follow the step-by-step guide. \n",
             fontSize = 18.sp,
             fontFamily = Roboto
         )
@@ -72,9 +71,7 @@ fun HelpScreen(
         )
 
         Text(
-            text = "• Can I add custom films? Not yet.\n" +
-                    "• How does AI suggest recipes? Based on film properties and chemistry.\n" +
-                    "• Is internet required? Only for AI recipe generation.",
+            text = "• Can I add custom films? Not yet.\n",
             fontSize = 18.sp,
             fontFamily = Roboto
         )
